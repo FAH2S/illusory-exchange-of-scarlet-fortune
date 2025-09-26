@@ -195,4 +195,31 @@ type FillsResponse struct {
 
 
 
+//{{{ User (DB)
+type User struct {
+    Username    string
+    Salt        *string
+    EncPubKey   *string
+    EncPrivKey  *string
+}
+
+//}}} users (DB)
+
+
+//{{{ OrderFill (DB)
+type OrderFill struct {
+    FillId          string
+    Symbol          string
+    Side            string
+    Price           float64
+    CoinAmount      float64
+    Coin            string
+    CurrencyAmount  float64
+    Currency        string
+    FillType        string
+    DateTime        string
+    Owner           string
+}
+
+//}}} OrderFill (DB)
 

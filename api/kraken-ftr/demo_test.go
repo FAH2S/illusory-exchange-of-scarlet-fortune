@@ -185,7 +185,7 @@ func TestGetOrderFills(t *testing.T) {
         t.Fatalf("GetOrderFills failed: %v", err)
     }
     t.Logf("Result: %+v\n", result)
-    t.Logf("Open positions: %+v\n\n", result.Fills)
+    t.Logf("Fills: %+v\n\n", result.Fills)
 }
 //}}} Test GetOrderFills
 

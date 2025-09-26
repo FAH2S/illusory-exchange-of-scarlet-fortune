@@ -177,7 +177,6 @@ func (exch *Exchange) GetOpenOrders() (*types.OpenOrdersResponse, error){
     }
     return &result, nil
 }
-
 //}}} Get active/open orders
 
 
@@ -325,12 +324,6 @@ func (exch *Exchange) BatchSendOrders(orderReqList []types.SendOrderRequest) (*t
         return nil, err
     }
     return &result, nil
-
-    // TODO save it as struct
-    //body, _ := ioutil.ReadAll(resp.Body)
-    //fmt.Println("\n\nResponse:", string(body))
-
-
 }
 //}}} Batch send order(s)
 
