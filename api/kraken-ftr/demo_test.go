@@ -26,11 +26,11 @@ func TestMain(m *testing.M) {
         panic("API keys not set ")
     }
     // Initialize once for all tests
-    demo = &Exchange{
-        baseURL: "https://demo-futures.kraken.com",
-        publicKey: apiKeyPublic,
-        privateKey: apiKeyPrivate,
-    }
+    demo = NewExchange(
+        "https://demo-futures.kraken.com",
+        apiKeyPublic,
+        apiKeyPrivate,
+    )
     sleepTime = 4 * time.Second
 
     // Run tests

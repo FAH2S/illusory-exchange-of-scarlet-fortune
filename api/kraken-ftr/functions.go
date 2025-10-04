@@ -31,6 +31,15 @@ type Exchange struct {
 }
 
 
+func NewExchange(baseURL, publicKey, privateKey string) *Exchange {
+    return &Exchange{
+        baseURL:    baseURL,
+        publicKey:  publicKey,
+        privateKey: privateKey,
+    }
+}
+
+
 // URL = baseURL + endpoint + (optional) pathParams + (optional) query
 //{{{ DRY
 func makeRequest(
