@@ -145,23 +145,18 @@ func DecryptAES(keyBytes, cipherBytes []byte) ([]byte, error) {
 
 
 //{{{ Encrypt/Decrypt Api Key
-func EncryptApiKey(password, apiKey string) (string, string, error) {
-    saltHexStr, err := GenerateRandomHex(32)
-    if err != nil {
-        return "", "", fmt.Errorf("Failed to generate salt: %v", err)
-    }
-
+func EncryptApiKey(saltHexStr, password, apiKey string) (string, error) {
     keyHexStr, err := DerivateKey(saltHexStr, password)
     if err != nil {
-        return "", "", fmt.Errorf("Failed to derivate key: %v", err)
+        return "", fmt.Errorf("Failed to derivate key: %v", err)
     }
 
     encApiKeyHexStr, err := EncryptAESHex(keyHexStr, apiKey)
     if err != nil {
-        return "", "", fmt.Errorf("Failed to encrypt: %v", err)
+        return "", fmt.Errorf("Failed to encrypt: %v", err)
     }
 
-    return saltHexStr, encApiKeyHexStr, nil
+    return encApiKeyHexStr, nil
 }
 
 

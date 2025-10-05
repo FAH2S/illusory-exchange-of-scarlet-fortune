@@ -178,6 +178,10 @@ func TestEncDecAESHex(t *testing.T) {
 
 //{{{ Encrypt/Decrypt Api Key
 func TestEncDecApiKey(t *testing.T) {
+    saltHexStr, err := GenerateRandomHex(32)
+    if err != nil {
+        t.Fatalf("Failed to generate salt: %v", err)
+    }
     tests := []struct {
         name            string
         password        string
@@ -199,7 +203,7 @@ func TestEncDecApiKey(t *testing.T) {
     // Iterate
     for _, tc := range tests {
         t.Run(tc.name, func(t *testing.T) {
-            saltHexStr, encApiKeyHexStr, err := EncryptApiKey(tc.password, tc.apiKey)
+            encApiKeyHexStr, err := EncryptApiKey(saltHexStr, tc.password, tc.apiKey)
             // Check error
             checkErr(t, err, tc.expErrSubStr)
             // If err occurs no point in testing return value
