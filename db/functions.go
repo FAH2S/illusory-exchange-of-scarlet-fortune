@@ -13,6 +13,40 @@ import (
     "github.com/lib/pq"
 )
 
+
+func GetConnFromEnv() (*sql.DB, error) {
+    // Extract values from env
+    host := os.Getenv("DB_HOST")
+    port := os.Getenv("DB_PORT")
+    user := os.Getenv("DB_USER")
+    password := os.Getenv("DB_PWD")
+    name := os.Getenv("DB_NAME")
+    if host == "" || port == "" || user == "" || password == "" || name == "" {
+        return nil, fmt.Errorf("Missing one or more required DB environment variables")
+    }
+
+    // Create conn string
+    connStr := fmt.Sprintf(
+        "postgres://%s:%s@%s:%s/%s?sslmode=disable",
+        user, password, host, port, name,
+    )
+
+    // Open connnections
+    db, err := sql.Open("postgres", connStr)
+    if err != nil {
+        return nil, fmt.Errorf("Failed to open connection: %v", err)
+    }
+
+    // Test connection
+    if err = db.Ping(); err !- nil {
+        db.Close()
+        return nil, fmt.Errorf("Failed to ping DB: %v", err)
+    }
+
+    return db, nil
+}
+
+
 // Potentially in future might need update enc_keys
 func CreateUser(db *sql.DB, u types.User) error {
     if u.Username == "" {
