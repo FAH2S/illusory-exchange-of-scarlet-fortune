@@ -5,6 +5,7 @@ import (
     "fmt"
     "errors"
     "database/sql"
+    "os"
 )
 import (
     "github.com/FAH2S/illusory-exchange-of-scarlet-fortune/types"
@@ -38,7 +39,7 @@ func GetConnFromEnv() (*sql.DB, error) {
     }
 
     // Test connection
-    if err = db.Ping(); err !- nil {
+    if err = db.Ping(); err != nil {
         db.Close()
         return nil, fmt.Errorf("Failed to ping DB: %v", err)
     }
